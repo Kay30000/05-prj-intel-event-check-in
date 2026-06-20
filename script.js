@@ -38,6 +38,7 @@ form.addEventListener("submit", function (event) {
 
   // Show welcome message
   const message = `Hello, ${name}! You're checked in with ${teamName}.`;
+  alert(message);
   document.getElementById("greeting").textContent = message;
 
   form.reset();
