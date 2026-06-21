@@ -7,6 +7,26 @@ const teamSelect = document.getElementById("teamSelect");
 let count = 0;
 const maxCount = 50;
 
+function getWinningTeamName() {
+  const waterCount = parseInt(
+    document.getElementById("waterCount").textContent,
+  );
+  const zeroCount = parseInt(document.getElementById("zeroCount").textContent);
+  const powerCount = parseInt(
+    document.getElementById("powerCount").textContent,
+  );
+
+  if (waterCount >= zeroCount && waterCount >= powerCount) {
+    return "Team Water Wise";
+  }
+
+  if (zeroCount >= waterCount && zeroCount >= powerCount) {
+    return "Team Net Zero";
+  }
+
+  return "Team Renewables";
+}
+
 // Handle form submission
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -37,9 +57,15 @@ form.addEventListener("submit", function (event) {
   teamCounter.textContent = parseInt(teamCounter.textContent) + 1;
 
   // Show welcome message
-  const message = `Hello, ${name}! You're checked in with ${teamName}.`;
-  alert(message);
-  document.getElementById("greeting").textContent = message;
+  const greeting = document.getElementById("greeting");
+
+  if (count >= maxCount) {
+    const winningTeamName = getWinningTeamName();
+    greeting.innerHTML = `Congratulations! The check-in goal is complete. ${winningTeamName} takes the win!`;
+  } else {
+    const message = `Hello, ${name}! You're checked in with ${teamName}.`;
+    greeting.textContent = message;
+  }
 
   form.reset();
 });
